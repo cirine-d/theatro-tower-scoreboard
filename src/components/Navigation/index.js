@@ -27,6 +27,9 @@ const NavigationAuth = () => (
     <li>
       <Link to={ROUTES.ADMIN}>Admin</Link>
     </li>
+    <li>
+      <Link to={ROUTES.CREATE_BOARD}>Create Board</Link>
+    </li>
     <SignOut />
   </ul>
 );
