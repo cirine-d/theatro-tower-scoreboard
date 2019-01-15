@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
+import { Button, Form, Segment } from "semantic-ui-react";
+
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
@@ -12,9 +14,10 @@ const SignUp = () => (
 );
 
 const SignUpLink = () => (
-  <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}> Sign Up</Link>
-  </p>
+  <Link to={ROUTES.SIGN_UP}>
+    {" "}
+    <Button content="Sign up" icon="signup" size="big" />
+  </Link>
 );
 
 const INITIAL_STATE = {
@@ -67,41 +70,58 @@ class SignUpFormBase extends Component {
       username === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="username"
-          value={username}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Full Name"
-        />
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email"
-        />
-        <input
-          name="passwordOne"
-          value={passwordOne}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <input
-          name="passwordTwo"
-          value={passwordTwo}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Confirm Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign Up
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <Segment placeholder>
+        <Form>
+          <Form.Input
+            icon="user"
+            iconPosition="left"
+            label="Name"
+            name="username"
+            value={username}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Name"
+          />
+          <Form.Input
+            onChange={this.onChange}
+            icon="email"
+            iconPosition="left"
+            label="Email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            type="text"
+          />
+          <Form.Input
+            onChange={this.onChange}
+            icon="lock"
+            iconPosition="left"
+            label="Password"
+            type="password"
+            name="passwordOne"
+            value={passwordOne}
+            placeholder="Password"
+          />
+          <Form.Input
+            onChange={this.onChange}
+            icon="lock"
+            iconPosition="left"
+            label="Password"
+            type="password"
+            name="passwordTwo"
+            value={passwordTwo}
+            placeholder="Confirm Password"
+          />
+          {error && <p>{error.message}</p>}
+          <Button
+            onClick={this.onSubmit}
+            disabled={isInvalid}
+            type="submit"
+            content="Sign Up"
+            primary
+          />
+        </Form>
+      </Segment>
     );
   }
 }

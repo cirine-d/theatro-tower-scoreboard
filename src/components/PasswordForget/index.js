@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import { Button, Form, Segment } from "semantic-ui-react";
+
 import * as ROUTES from "../../constants/routes";
 import { withFirebase } from "../Firebase";
 
 const PasswordForget = () => (
   <div>
-    <h1>PasswordForget</h1>
+    <h1>Reset Password</h1>
     <PasswordForgetForm />
   </div>
 );
@@ -48,20 +50,26 @@ class PasswordForgetFormBase extends Component {
     const isInvalid = email === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={this.state.email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email Address"
-        />
-        <button disabled={isInvalid} type="submit">
-          Reset My Password
-        </button>
-
-        {error && <p>{error.message}</p>}
-      </form>
+      <Segment placeholder>
+        <Form>
+          <Form.Input
+            onChange={this.onChange}
+            icon="user"
+            iconPosition="left"
+            label="Email"
+            name="email"
+            placeholder="Email"
+          />
+          <Button
+            onClick={this.onSubmit}
+            disabled={isInvalid}
+            type="submit"
+            content="Reset Password"
+            primary
+          />
+          {error && <p>{error.message}</p>}
+        </Form>
+      </Segment>
     );
   }
 }

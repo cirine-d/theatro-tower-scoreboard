@@ -1,5 +1,7 @@
+import "./app.css";
+
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
 
 import Navigation from "../Navigation";
 import LandingPage from "../Landing";
@@ -16,11 +18,10 @@ import { withAuthentification } from "../Session";
 
 const App = () => (
   <Router>
-    <div>
-      <Navigation />
-
-      <hr />
-
+    <div className="body">
+      <div className="vertical-menu">
+        <Navigation />
+      </div>
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />

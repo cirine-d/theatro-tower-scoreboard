@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+import { Button, Divider, Form, Grid, Segment } from "semantic-ui-react";
+
 import { SignUpLink } from "../SignUp";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
@@ -11,7 +13,6 @@ const SignIn = () => (
     <h1>SignIn</h1>
     <SignInForm />
     <PasswordForgetLink />
-    <SignUpLink />
   </div>
 );
 
@@ -50,29 +51,48 @@ class SignInFormBase extends Component {
     const { email, password, error } = this.state;
 
     const isInvalid = email === "" || password === "";
-
+    console.warn(this.state);
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Email"
-        />
-        <input
-          name="password"
-          value={password}
-          onChange={this.onChange}
-          type="password"
-          placeholder="Password"
-        />
-        <button disabled={isInvalid} type="submit">
-          Sign In
-        </button>
+      <Segment placeholder>
+        <Grid columns={2} relaxed="very" stackable>
+          <Grid.Column>
+            <Form>
+              <Form.Input
+                onChange={this.onChange}
+                icon="user"
+                iconPosition="left"
+                label="Email"
+                name="email"
+                placeholder="Email"
+              />
+              <Form.Input
+                onChange={this.onChange}
+                icon="lock"
+                iconPosition="left"
+                label="Password"
+                name="password"
+                type="password"
+              />
+              {error && <p>{error.message}</p>}
+              <Button
+                onClick={this.onSubmit}
+                disabled={isInvalid}
+                type="submit"
+                content="Login"
+                primary
+              />
+            </Form>
+          </Grid.Column>
 
-        {error && <p>{error.message}</p>}
-      </form>
+          <Grid.Column verticalAlign="middle">
+            <Button size="big">
+              <SignUpLink />
+            </Button>
+          </Grid.Column>
+        </Grid>
+
+        <Divider vertical>Or</Divider>
+      </Segment>
     );
   }
 }
